@@ -46,7 +46,7 @@ namespace Boids
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.DoubleBuffer, true);
             StartPosition = FormStartPosition.CenterScreen;
             ClientSize = new Size(WindowWidth, WindowHeight);
-
+           
             // Boid setup
             var pigeons = new List<Pigeon>();
             _birds = new List<Bird>();
@@ -63,6 +63,7 @@ namespace Boids
             _timer.Tick += new EventHandler(OnTick);
             _timer.Interval = 75;
             _timer.Start();
+
         }
 
         private void OnTick(object sender, EventArgs e)
@@ -77,21 +78,27 @@ namespace Boids
                 bird.Move();
             });
 
+            //List<Task> list = new List<Task>();
+
+            //foreach (var bird in _birds)
+            //{
+            //    list.Add(Task.Factory.StartNew(() =>
+            //    {
+            //        bird.Move();
+            //    }));
+
+            //}
+
+            //Task.WaitAll(list.ToArray());
+
             _sw.Stop();
             _renderTime = _sw.ElapsedMilliseconds;
-
-            /*foreach (var bird in _birds)
-            {
-                //Task.Factory.StartNew(() =>
-                //{
-                    bird.Move();
-                //});
-                
-            }*/
+            //Console.WriteLine(_renderTime);
 
             Invalidate();
-        }
 
+        }
+        
         protected override void OnPaint(PaintEventArgs e)
         {
             if (_renderTime > 0)
